@@ -11,10 +11,54 @@ function renderLicenseLink(license) {}
 function renderLicenseSection(license) {}
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
+// function generateMarkdown(answers) {
+//   return `# ${answers.projectname}` 
+// }
 
-`;
+class MarkDown {
+
+  static renderLicenseBadge(license){
+    const badges = {
+      gnuplv3: '[![License: LGPL v3](https://imgshields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)',
+      apache: '[![License: LGPL v3](https:// )',
+      MIT: '[![License: LGPL v3](https:// )'
+    }
+      return badges[license]
+  }
+
+  static renderLicenseLink(license) {
+    const licenseLinks = {
+      gnuplv3: '[![License: LGPL v3](https://www.gnu.org/licenses/lgpl-3.0)',
+      apache: '[![License: LGPL v3](https:// )',
+      MIT: '[![License: LGPL v3](https:// )'
+   }
+
+   return licenseLinks[license]
+  }
+
+  static generateMarkdown(answers) {
+    return ` 
+  # ${answers.projectname}  
+
+  ${this.renderLicenseBadge}(answers.license)}
+
+  
+  ## Description
+  ${answers.description}
+
+  ## Table of Contents
+  - [Installation]
+
+  ## Installation
+  - user name: ${answers.username}
+  - email: ${answers.email}
+
+  ## Usage
+
+  ## License
+  ${this.renderLicenseLink(answers.license)}
+    `
+  }
 }
 
-module.exports = generateMarkdown;
+module.exports = MarkDown;
