@@ -1,7 +1,10 @@
+// packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const MarkDown = require('./utils/generateMarkdown');
+const { inherits } = require('util');
 
+// array of questions for user input
 const questions = [ 
     {
         type: 'input',
@@ -16,32 +19,32 @@ const questions = [
     {
         type: 'input',
         name: 'projectname',
-        message: 'What is your project name'
+        message: 'What is your project name:'
     },
     {
         type: 'input',
         name: 'description',
-        message: 'Please write a short description of your project'
+        message: 'Please write a short description of your project:'
     },
     {
         type: 'input',
         name: 'installation',
-        message: 'Please provide directions for installation'
+        message: 'Please provide directions for installation:'
     },
     {
         type: 'input',
         name: 'usage',
-        message: 'Please write a short description on usage'
+        message: 'Please write a short description on usage:'
     },
     {
         type: 'input',
         name: 'contribution',
-        message: 'Please list ways of how to contribute',
+        message: 'Please list ways of how to contribute:',
     },
     {
         type: 'input',
         name: 'tests',
-        message: 'Please provide direction of any tests to run',
+        message: 'Please provide direction of any tests to run:',
     },
     {
         type: 'list',
@@ -51,30 +54,16 @@ const questions = [
     },
 ];
 
-
-// inquirer.prompt(questions)
-//     .then((answers) => {
-//         fs.writeFile('readme.md', JSON.stringify(answers, null, "\t"), (err) => 
-//             err ? console.log(err) : console.log("Success"))
-
-//     })        
-//     .catch((error) => {
-//         if (error.isTtyError) {
-//             // Prompt couldn't be rendered in the current environment
-//           } else {
-//             // Something else went wrong
-//           }
-//         });
-
-function runQuery() {
+// 
+function writeToFile() {
         return inquirer.prompt(questions)
             .then((answers)=> {
                 const mark = MarkDown.generateMarkdown(answers)
                 fs.writeFile('README.md', mark, function(err) {
                     if(err) { 
-                        console.log('Could not save file')
+                        console.log('Could not generate file')
                     } else {
-                        console.log('Success: new file generated inside the current folder')
+                        console.log('Success: new readme.md generated inside the current folder')
                     }
                 })
             })
@@ -83,4 +72,6 @@ function runQuery() {
             })
     }
 
- runQuery()
+ writeToFile();
+ 
+//  init();
