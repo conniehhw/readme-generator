@@ -1,12 +1,10 @@
-// TODO: Include packages needed for this application
-// npm init, npm install, 
-
-// TODO: Create an array of questions for user input
-
+// packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./utils/generateMarkdown.js');
+const MarkDown = require('./utils/generateMarkdown');
+const { inherits } = require('util');
 
+// array of questions for user input
 const questions = [ 
     {
         type: 'input',
@@ -21,58 +19,59 @@ const questions = [
     {
         type: 'input',
         name: 'projectname',
-        message: 'What is your project name'
+        message: 'What is your project name:'
     },
     {
         type: 'input',
         name: 'description',
-        message: 'Please write a short description of your project'
+        message: 'Please write a short description of your project:'
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'Please provide directions for installation:'
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Please write a short description on usage:'
+    },
+    {
+        type: 'input',
+        name: 'contribution',
+        message: 'Please list ways of how to contribute:',
+    },
+    {
+        type: 'input',
+        name: 'tests',
+        message: 'Please provide direction of any tests to run:',
     },
     {
         type: 'list',
         name: 'license',
-        message: 'What kind of license should your project have?',
+        message: 'What kind of license should your project have? (use arrow keys)',
         choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None']
     },
 ];
 
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-//     fs.writeFile('readMe.md', data);
+// 
+function writeToFile() {
+        return inquirer.prompt(questions)
+            .then((answers)=> {
+                const mark = MarkDown.generateMarkdown(answers)
+                fs.writeFile('readme.md', mark, function(err) {
+                    if(err) { 
+                        console.log('Could not generate file')
+                    } else {
+                        console.log('Success: new readme.md generated inside the current folder')
+                    }
+                })
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+    }
 
-inquirer.prompt(questions)
-    .then((answers) => {
-        const readmeAnswers = generateMarkdown(answers);
-    
-        fs.writeFile('readme.md', readmeAnswers, (err) => 
-            err ? console.log(err) : console.log("Success")
-        ) 
-    });
-        
-
-// const writeFile = async (filePath) => {
-//     try {
-//         const contents = await fs.writeFile('readme.md', data);
-//         console.log(contents);    
-//     } catch (err) {
-//         console.error(err.message);
-//     }
-// }
-
-writeFile('readme.md');
-
-// TODO: Create a function to initialize app
-// function init() {}
-
-
-// Function call to initialize app
-// init();
-
-// const badmath = require('./filename');
-// module.exports = "string", 5, Object
-// module.exports = {
-//     pie,
-//     predictable
-// }
-
-
+ writeToFile();
+ 
+//  init();
