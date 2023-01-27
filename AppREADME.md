@@ -20,8 +20,8 @@ This app runs in the command-line terminal. It leverages the Inquirer package to
 Click [here](https://drive.google.com/file/d/1_QGo400kw9HCG4H6-4tv6qQLNixVww5b/view) to watch a video walk-through.
 
 
-![Screen shot - initiate app](./GenReadMe/Assets/initiateapp.jpg)
-![Screen shot - result readme.md](./GenReadMe/Assets/readmeresult.jpg)
+![Screen shot - initiate app](./Assets/initiateapp.jpg)
+![Screen shot - result readme.md](./Assets/readmeresult.jpg)
 
 
 ## License
